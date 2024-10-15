@@ -1,0 +1,93 @@
+<div align="center">
+
+<p><?php print_string("paymentrequired") ?></p>
+<p><b><?php echo $instancename; ?></b></p>
+<p><b><?php echo get_string("cost").": {$instance->currency} {$localisedcost}"; ?></b></p>
+<p><img alt="<?php print_string('paypalaccepted', 'enrol_paypal') ?>" src="https://www.paypal.com/en_US/i/logo/PayPal_mark_60x38.gif" /></p>
+<div style="display: flex; align-items: center; border: 1px solid #000; width: max-content;">
+    <input style="width: 200px; border: none; padding: 10px;" type="text" name="promo_code" id="promo_code_value" onkeyup="error_clear()" placeholder="<?php print_string('promo_code', 'enrol_paypal') ?>" />
+    <button style="background-color: #333; color: white; border: none; padding: 10px 20px;" type="button" name="submit_promo_code" onclick="apply_promo_code()">
+        <?php print_string('promo_code_apply', 'enrol_paypal') ?>
+    </button>
+</div>
+<p><?php print_string("paymentinstant") ?></p>
+<?php
+    $paypalurl = empty($CFG->usepaypalsandbox) ? 'https://www.paypal.com/cgi-bin/webscr' : 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+?>
+<form action="<?php echo $paypalurl ?>" method="post">
+
+<input type="hidden" name="cmd" value="_xclick" />
+<input type="hidden" name="charset" value="utf-8" />
+<input type="hidden" name="business" value="<?php p($this->get_config('paypalbusiness'))?>" />
+<input type="hidden" name="item_name" value="<?php p($coursefullname) ?>" />
+<input type="hidden" name="item_number" value="<?php p($courseshortname) ?>" />
+<input type="hidden" name="quantity" value="1" />
+<input type="hidden" name="on0" value="<?php print_string("user") ?>" />
+<input type="hidden" name="os0" value="<?php p($userfullname) ?>" />
+<input type="hidden" name="custom" value="<?php echo "{$USER->id}-{$course->id}-{$instance->id}" ?>" />
+
+<input type="hidden" name="currency_code" value="<?php p($instance->currency) ?>" />
+<input type="hidden" name="amount" value="<?php p($cost) ?>" />
+
+<input type="hidden" name="for_auction" value="false" />
+<input type="hidden" name="no_note" value="1" />
+<input type="hidden" name="no_shipping" value="1" />
+<input type="hidden" name="notify_url" value="<?php echo "$CFG->wwwroot/enrol/paypal/ipn.php"?>" />
+<input type="hidden" name="return" value="<?php echo "$CFG->wwwroot/enrol/paypal/return.php?id=$course->id" ?>" />
+<input type="hidden" name="cancel_return" value="<?php echo $CFG->wwwroot ?>" />
+<input type="hidden" name="rm" value="2" />
+<input type="hidden" name="cbt" value="<?php print_string("continuetocourse") ?>" />
+
+<input type="hidden" name="first_name" value="<?php p($userfirstname) ?>" />
+<input type="hidden" name="last_name" value="<?php p($userlastname) ?>" />
+<input type="hidden" name="address" value="<?php p($useraddress) ?>" />
+<input type="hidden" name="city" value="<?php p($usercity) ?>" />
+<input type="hidden" name="email" value="<?php p($USER->email) ?>" />
+<input type="hidden" name="country" value="<?php p($USER->country) ?>" />
+
+<input type="submit" value="<?php print_string("sendpaymentbutton", "enrol_paypal") ?>" />
+
+</form>
+
+</div>
+<script>
+    function apply_promo_code() {
+        const promo_code = document.getElementById('promo_code_value');
+        const price = document.getElementById('price');
+        const amount = document.getElementById('amount');
+        const custom = document.getElementById('custom');
+    
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+    
+                    if (response.new_price) {
+                        document.getElementById("promo_code_result").innerHTML = "Cupom aplicado: " + response.discount + "% de desconto!";
+                        price.textContent = "<?php echo get_string("cost").": {$instance->currency} "; ?>" + response.new_price;
+                        custom.value = "<?php echo "{$USER->id}-{$course->id}-{$instance->id}-"; ?>" + promo_code.value;
+                        amount.value = response.amount;
+                    } else {
+                        document.getElementById("promo_code_result").innerHTML = "Código de cupom inválido!";
+                    }
+                } catch (e) {
+                    document.getElementById("promo_code_result").innerHTML = "Erro ao processar o código promocional.";
+                }
+            }
+        };
+    
+        xhr.open("POST", "<?php echo $CFG->wwwroot ?>/enrol/paypal/promocode.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("promo_code=" + promo_code.value + "&instanceid=<?php echo $instance->id ?>");
+    }
+    function error_clear(){
+        const price = document.getElementById('price');
+        const amount = document.getElementById('amount');
+        const custom = document.getElementById('custom');
+        price.textContent = "<?php echo get_string("cost").": {$instance->currency} {$localisedcost}"; ?>";
+        amount.value = "<?php p($cost) ?>";
+        custom.value = "<?php echo "{$USER->id}-{$course->id}-{$instance->id}"; ?>";
+        document.getElementById("promo_code_result").innerHTML = "";
+    }
+</script>
