@@ -88,6 +88,7 @@ if (empty($custom) || count($custom) < 3) {
 $data->userid           = (int)$custom[0];
 $data->courseid         = (int)$custom[1];
 $data->instanceid       = (int)$custom[2];
+$data->promo_code       = $custom[3];
 $data->payment_gross    = $data->mc_gross;
 $data->payment_currency = $data->mc_currency;
 $data->timeupdated      = time();
@@ -220,7 +221,7 @@ if (strlen($result) > 0) {
         }
 
         $instance_promocode = $plugin_instance->customchar1;
-        $promo_code = $data->customchar1;
+        $promo_code = $data->promo_code;
         if ($promo_code){
             $promo_codes_and_discounts = explode("\n", $instance_promocode);
 

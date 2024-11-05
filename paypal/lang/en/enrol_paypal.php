@@ -21,6 +21,11 @@
  * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+ 
+//Miguel AL
+$string['promo_code'] = 'Promo Code';
+$string['promo_code_apply'] = 'apply';
+$string['promo_code_help'] = 'Enter a promotional code to apply discounts during the sign-up process.'; 
 
 $string['assignrole'] = 'Assign role';
 $string['businessemail'] = 'PayPal business email';
