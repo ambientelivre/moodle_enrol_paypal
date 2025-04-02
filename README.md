@@ -22,18 +22,28 @@ Este projeto segue a mesma licença do Moodle e do plugin original: [GNU GPL v3]
 
 ## Como Usar
 
-1. Configure o plugin de inscrição via PayPal no Moodle.
-2. Adicione códigos promocionais na configuração do curso:
+1. **Instale o plugin modificado**:
+   - Baixe este repositório e compacte a pasta **paypal** em um arquivo `.zip`.
+   - No Moodle, vá para **Administração do site > Plugins > Instalar plugins**.
+   - Envie o arquivo `paypal.zip` e siga as instruções para instalação.
+
+2. **Habilite o plugin**:
+   - Acesse **Administração do site > Plugins > Visão geral dos Plugins**.
+   - Localize o tópico **Métodos de inscrição** e clique na engrenagem.
+   - Procure o método **PayPal** e clique no ícone de olho para habilitá-lo.
+
+3. **Configure os códigos promocionais no curso**:
    - Na página do curso, coloque o mouse sobre a engrenagem e clique em **Mais**.
-   - Mude para a aba **Usuários**.
+   - Navegue até a aba **Usuários**.
    - Em **Métodos de inscrição**, clique em **PayPal**.
-   - Insira os promo codes na área **Código promocional** no seguinte layout:
+   - Insira os promo codes na área **Código promocional** no seguinte formato:
      ```
      codigo15|15%
      codigo30|30%
      ```
 
-3. Os usuários poderão inserir o código promocional no formulário de inscrição para obter descontos.
+4. **Utilização pelos usuários**:
+   - Durante o processo de inscrição, os usuários poderão inserir o código promocional no formulário para obter o desconto correspondente.
 
 ## Observação
 
