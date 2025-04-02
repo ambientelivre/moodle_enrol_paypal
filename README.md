@@ -35,7 +35,9 @@ Este projeto segue a mesma licença do Moodle e do plugin original: [GNU GPL v3]
 3. **Configure os códigos promocionais no curso**:
    - Na página do curso, coloque o mouse sobre a engrenagem e clique em **Mais**.
    - Navegue até a aba **Usuários**.
-   - Em **Métodos de inscrição**, clique em **PayPal**.
+   - Em **Métodos de inscrição**.
+   - Clique em **Adicionar método** selecione **PayPal** e siga as instruções.
+   - Clique em **PayPal**.
    - Insira os promo codes na área **Código promocional** no seguinte formato:
      ```
      codigo15|15%
