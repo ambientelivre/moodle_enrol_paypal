@@ -1,4 +1,4 @@
-# Moodle PayPal Enrolment Plugin with Promo Code Feature
+# MOODLE_ENROL_PAYPAL
 
 Este projeto é uma modificação do plugin nativo de inscrição via PayPal do Moodle. Foi implementada a funcionalidade de **promo code/cupom de desconto**, permitindo que os usuários apliquem códigos promocionais para obter descontos durante o processo de inscrição em cursos.
 
