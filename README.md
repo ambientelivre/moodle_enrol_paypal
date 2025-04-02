@@ -49,4 +49,5 @@ Este projeto segue a mesma licença do Moodle e do plugin original: [GNU GPL v3]
 
 ## Observação
 
-Este projeto é uma edição de um plugin já existente no Moodle. Para mais informações sobre o plugin original, consulte a [documentação oficial do Moodle](https://moodle.org/).
+- Caso ocorram erros na tradução dos campos, recomenda-se atualizar o pacote de idiomas **pt_br**.
+- Este projeto é uma edição de um plugin já existente no Moodle. Para mais informações sobre o plugin original, consulte a [documentação oficial do Moodle](https://moodle.org/).
